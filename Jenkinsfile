@@ -9,13 +9,9 @@ pipeline {
         }
 
         stage('Build') {
-            environment {
-                PHP_VERSION = '8.1.6' // Sesuaikan versi PHP yang Anda inginkan di sini
-            }
             steps {
                 script {
-                    docker.image("php:${PHP_VERSION}-fpm-custom").inside('-u root') {
-                        sh 'apt-get update && apt-get install -y unzip' // Install paket tambahan jika diperlukan
+                    docker.image('php:8.1.6-fpm').inside('-u root') {
                         sh 'rm composer.lock'
                         sh 'composer install'
                     }
